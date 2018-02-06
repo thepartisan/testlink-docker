@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:edge
 
 ENV TIMEZONE UTC
 ENV PHP_MEMORY_LIMIT 512M
@@ -11,38 +11,38 @@ RUN apk update && apk upgrade && \
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
     echo "${TIMEZONE}" > /etc/timezone && \
     apk add --update \
-        php-mcrypt \
-        php-soap \
-        php-openssl \
-        php-gmp \
-        php-pdo_odbc \
-        php-json \
-        php-dom \
-        php-pdo \
-        php-zip \
-        php-mysql \
-        php-sqlite3 \
-        php-apcu \
-        php-pdo_pgsql \
-        php-bcmath \
-        php-gd \
-        php-xcache \
-        php-odbc \
-        php-pdo_mysql \
-        php-pdo_sqlite \
-        php-pgsql \
-        php-gettext \
-        php-xmlreader \
-        php-xmlrpc \
-        php-ldap \
-        php-bz2 \
-        php-memcache \
-        php-mssql \
-        php-iconv \
-        php-pdo_dblib \
-        php-curl \
-        php-ctype \
-        php-fpm && \
+        php5-mcrypt \
+        php5-soap \
+        php5-openssl \
+        php5-gmp \
+        php5-pdo_odbc \
+        php5-json \
+        php5-dom \
+        php5-pdo \
+        php5-zip \
+        php5-mysql \
+        php5-sqlite3 \
+        php5-apcu \
+        php5-pdo_pgsql \
+        php5-bcmath \
+        php5-gd \
+        php5-odbc \
+        php5-pdo_mysql \
+        php5-pdo_sqlite \
+        php5-pgsql \
+        php5-gettext \
+        php5-xmlreader \
+        php5-xmlrpc \
+        php5-ldap \
+        php5-bz2 \
+        php5-mssql \
+        php5-iconv \
+        php5-pdo_dblib \
+        php5-curl \
+        php5-ctype \
+        php5-fpm
+
+RUN ln -s /etc/php5 /etc/php && \
     sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/php-fpm.conf && \
     sed -i -e "s/listen\s*=\s*127.0.0.1:9000/listen = 9000/g" /etc/php/php-fpm.conf && \
     sed -i "s|;date.timezone =.*|date.timezone = ${TIMEZONE}|" /etc/php/php.ini && \
@@ -60,4 +60,5 @@ RUN apk update && apk upgrade && \
 EXPOSE 9000
 
 # Entry point
-ENTRYPOINT ["/usr/bin/php-fpm"]
+ENTRYPOINT ["/usr/bin/php-fpm5"]
+
